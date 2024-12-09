@@ -6,18 +6,20 @@ import { RestaurantContext } from '../context/RestaurantContext';
 const AddRestaurant = ({ navigation }) => {
   const { addRestaurant } = useContext(RestaurantContext);
 
+  // Form state variables
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [rating, setRating] = useState(0); 
+  const [rating, setRating] = useState(0); // New state for rating
   const [location, setLocation] = useState({
     latitude: 43.659328789707374,
     longitude: -79.40865124554749,
   });
 
+  // Handle map press to set location and address
   const handleMapPress = async (event) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
     setLocation({ latitude, longitude });
@@ -38,6 +40,7 @@ const AddRestaurant = ({ navigation }) => {
     }
   };
 
+  // Add a tag to the list
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
       setTags([...tags, tagInput.trim()]);
@@ -45,10 +48,12 @@ const AddRestaurant = ({ navigation }) => {
     }
   };
 
+  // Remove a tag from the list
   const handleRemoveTag = (tag) => {
     setTags(tags.filter((t) => t !== tag));
   };
 
+  // Save restaurant data
   const handleSave = () => {
     if (!name || !address || !phone || !description || rating === 0) {
       Alert.alert('Validation Error', 'Please fill all required fields and select a rating.');
@@ -68,7 +73,7 @@ const AddRestaurant = ({ navigation }) => {
       phone,
       description,
       tags,
-      rating, 
+      rating, // Include the rating
       location,
     };
 
