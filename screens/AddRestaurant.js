@@ -13,13 +13,13 @@ const AddRestaurant = ({ navigation }) => {
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [rating, setRating] = useState(0); // New state for rating
+  const [rating, setRating] = useState(0);
   const [location, setLocation] = useState({
     latitude: 43.659328789707374,
     longitude: -79.40865124554749,
   });
 
-  // Handle map press to set location and address
+  // Handle map press to set location and fetch address
   const handleMapPress = async (event) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
     setLocation({ latitude, longitude });
@@ -73,7 +73,7 @@ const AddRestaurant = ({ navigation }) => {
       phone,
       description,
       tags,
-      rating, // Include the rating
+      rating,
       location,
     };
 
@@ -155,7 +155,7 @@ const AddRestaurant = ({ navigation }) => {
         }}
         onPress={handleMapPress}
       >
-        <Marker coordinate={location} />
+        <Marker coordinate={location} draggable onDragEnd={handleMapPress} />
       </MapView>
 
       <Button title="Save" onPress={handleSave} />
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     flexGrow: 1,
+    backgroundColor: '#fff',
   },
   label: {
     fontSize: 16,

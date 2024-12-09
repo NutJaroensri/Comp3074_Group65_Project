@@ -88,17 +88,18 @@ const RestaurantDetails = ({ route, navigation }) => {
         />
       </MapView>
 
-      <Button title="Get Directions" onPress={openDirections} />
-
-      <Button
-        title="View Full-Screen Map"
-        onPress={() =>
-          navigation.navigate('MapScreen', {
-            location: restaurant.location,
-            name: restaurant.name,
-          })
-        }
-      />
+      <View style={styles.buttonContainer}>
+        <Button title="Get Directions" onPress={openDirections} />
+        <Button
+          title="View Full-Screen Map"
+          onPress={() =>
+            navigation.navigate('MapScreen', {
+              location: restaurant.location,
+              name: restaurant.name,
+            })
+          }
+        />
+      </View>
     </View>
   );
 };
@@ -141,6 +142,11 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 5,
     marginBottom: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
   },
 });
 

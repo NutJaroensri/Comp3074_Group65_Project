@@ -9,18 +9,15 @@ const MainScreen = ({ navigation }) => {
     removeRestaurant(id);
   };
 
-  const renderStars = (rating) => {
-    // Render stars based on the rating value (1-5)
-    return (
-      <View style={styles.starsContainer}>
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Text key={star} style={[styles.star, rating >= star && styles.selectedStar]}>
-            ★
-          </Text>
-        ))}
-      </View>
-    );
-  };
+  const renderStars = (rating) => (
+    <View style={styles.starsContainer}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Text key={star} style={[styles.star, rating >= star && styles.selectedStar]}>
+          ★
+        </Text>
+      ))}
+    </View>
+  );
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
@@ -31,7 +28,6 @@ const MainScreen = ({ navigation }) => {
       >
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.address}>{item.address}</Text>
-        {/* Display star rating */}
         {renderStars(item.rating || 0)}
       </TouchableOpacity>
       <View style={styles.actions}>
@@ -48,20 +44,29 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>My Restaurants</Text>
+      </View>
       <FlatList
         data={restaurants}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.empty}>No restaurants available</Text>}
       />
-      <Button
-        title="Search Restaurants"
-        onPress={() => navigation.navigate('SearchScreen')}
-      />
-      <Button
-        title="Add New Restaurant"
-        onPress={() => navigation.navigate('AddRestaurant')}
-      />
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={[styles.button, styles.primaryButton]}
+          onPress={() => navigation.navigate('SearchScreen')}
+        >
+          <Text style={styles.buttonText}>Search Restaurants</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.secondaryButton]}
+          onPress={() => navigation.navigate('AddRestaurant')}
+        >
+          <Text style={styles.buttonText}>Add New Restaurant</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -71,21 +76,35 @@ export default MainScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: '#F5F5F5',
+  },
+  header: {
+    paddingTop: 60,
+    padding: 15,
+    backgroundColor: '#2A9D8F',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#FFF',
   },
   card: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFF',
     padding: 16,
+    marginHorizontal: 16,
     marginBottom: 12,
     borderRadius: 8,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 3,
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#000',
   },
   address: {
     fontSize: 14,
@@ -113,5 +132,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginTop: 20,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 20,
+  },
+  button: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  primaryButton: {
+    backgroundColor: '#2A9D8F',
+  },
+  secondaryButton: {
+    backgroundColor: '#E76F51',
+  },
+  buttonText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

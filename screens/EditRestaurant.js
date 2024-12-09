@@ -154,7 +154,8 @@ const EditRestaurant = ({ route, navigation }) => {
         }}
         onPress={handleMapPress}
       >
-        <Marker coordinate={location} />
+        {/* Draggable Marker to display and update location */}
+        <Marker coordinate={location} draggable onDragEnd={handleMapPress} />
       </MapView>
 
       <Button title="Save" onPress={handleSave} />
